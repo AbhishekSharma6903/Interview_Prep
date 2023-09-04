@@ -1,3 +1,4 @@
 ### CSRF - Cross-Site Request Forgery
 - Cross site request forgery (CSRF) is a vulnerability where an attacker performs actions while impersonating another user. For example, transferring funds to an attacker’s account, changing a victim’s email address, or they could even just redirect a pizza to an attacker’s address!
 -Some form of social engineering, like phishing or spoofing, is usually required for this kind of attack to be successful. The attacker typically needs to trick the user into visiting a malicious website for the attack to take place. This malicious website would then contain a request to the targeted website.
+-If the user is authenticated by the targeted website, the request is executed. This attack works because the user's cookies are automatically included in the modified request to a legitimate application.
