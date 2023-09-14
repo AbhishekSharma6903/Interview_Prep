@@ -1,5 +1,45 @@
-### CSRF - Cross-Site Request Forgery
+### CSRF - Cross-Site Request Forgery : { also known as XSRF, Sea Surf or Session Riding } ###
+Threat Level : Medium
+
+-----------------------------------What is CSRF ?---------------------------------------------------
 - Cross site request forgery (CSRF) is a vulnerability where an attacker performs actions while impersonating another user. For example, transferring funds to an attacker’s account, changing a victim’s email address, or they could even just redirect a pizza to an attacker’s address!
 - Some form of social engineering, like phishing or spoofing, is usually required for this kind of attack to be successful. The attacker typically needs to trick the user into visiting a malicious website for the attack to take place. This malicious website would then contain a request to the targeted website.
 - If the user is authenticated by the targeted website, the request is executed. This attack works because the user's cookies are automatically included in the modified request to a legitimate application.
 - CSRF vulnerabilities occur when vulnerable web apps simply trust the cookies sent by web browsers without further validation.
+
+
+--------------------------Example of GET scenario: -------------------------------------
+For example, a typical GET request for a $100 bank transfer might look like:
+{ GET http://netbank.com/transfer.do?acct=PersonB&amount=$100 HTTP/1.1 }
+
+A hacker can modify this script so it results in a $100 transfer to their own account. Now the malicious request might look like:
+{ GET http://netbank.com/transfer.do?acct=AttackerA&amount=$100 HTTP/1.1 }
+
+A bad actor can embed the request into an innocent looking hyperlink: { <a href="http://netbank.com/transfer.do?acct=AttackerA&amount=$100">Read more!</a> }
+
+-------------------------Example of POST scenario:----------------------------------------
+- Note that if the bank’s website is only using POST requests, it’s impossible to frame malicious requests using a <a> href tag.
+- the attack could be delivered in a <form> tag with automatic execution of the embedded JavaScript.
+  example :
+
+ <body onload="document.forms[0].submit()">
+   <form action="http://netbank.com/transfer.do" method="POST">
+     <input type="hidden" name="acct" value="AttackerA"/>
+     <input type="hidden" name="amount" value="$100"/>
+     <input type="submit" value="View my pictures!"/>
+   </form>
+ </body>
+
+------------ Methods of CSRF mitigation ----------------------------------------------
+Best practices include:
+1.Logging off web application when not in use.
+2.Not allowing browsers to remember pass
+
+From Server Side:
+1.Generate  unique random tokens for every session req or ID.
+2.Double Submission of Cookies.
+
+-------------Practice Hands On ! -------------------------------------------------------
+https://portswigger.net/web-security/csrf/lab-no-defenses
+https://portswigger.net/web-security/csrf/bypassing-token-validation/lab-token-validation-depends-on-request-method
+
