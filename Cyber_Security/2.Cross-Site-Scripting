@@ -1,1 +1,45 @@
+### XSS : cross-site scripting ###
+Threat Level : Medium - High
 
+----------------------------------- What is Cross-Site Scripting ?-------------------------------------------------------------------------------------------
+- Cross-site scripting (XSS) is an exploit where the attacker attaches code onto a legitimate website that will execute when the victim loads the website. 
+- That malicious code can be inserted in several ways. 
+- Most popularly, it is either added to the end of a url or posted directly onto a page that displays user-generated content.
+- In more technical terms, cross-site scripting is a client-side code injection attack.
+
+Q> How Does it Work ?
+- Cross-site scripting works by manipulating a vulnerable web site so that it returns malicious JavaScript to users.
+- When the malicious code executes inside a victim's browser, the attacker can fully compromise their interaction with the application.
+
+
+Q> How can an attacker use cross-site scripting to cause harm ?
+- JavaScript cross-site scripting attacks are popular because JavaScript has access to some sensitive data that can be used for identity theft and other malicious purposes. 
+- For example, JavaScript has access to cookies*, and an attacker could use an XSS attack to steal a user’s cookies and impersonate them online.
+- JavaScript can also create HTTP requests, which can be used to send data (such as stolen cookies) back to the attacker.
+- client-side JavaScript can also help an attacker gain access to APIs that contain geolocation coordinates, webcam data, and other sensitive information.
+
+---------------------------------- STEP_BY_STEP : EXAMPLE CASE--------------------------------------------------------------------------------------------------
+1.The victim loads a webpage and the malicious code copies the user’s cookies.
+2.The code then sends an HTTP request to an attacker’s webserver with the stolen cookies in the body of the request.
+3.The attacker can then use those cookies to impersonate the user on that website for the purpose of a social engineering attack or even to access bank account numbers or other sensitive data.
+
+----------------------------------- What are the types of XSS attacks ? ---------------------------------------------------------------------------------------
+1.Reflected XSS : where the malicious script comes from the current HTTP request.
+- Reflected XSS is the simplest variety of cross-site scripting. It arises when an application receives data in an HTTP request and includes that data within the immediate response in an unsafe way.
+
+2.Stored XSS : where the malicious script comes from the website's database.
+- Stored XSS (also known as persistent or second-order XSS) arises when an application receives data from an untrusted source and includes that data within its later HTTP responses in an unsafe way.
+
+3.DOM-based XSS : where the vulnerability exists in client-side code rather than server-side code.
+- DOM-based XSS (also known as DOM XSS) arises when an application contains some client-side JavaScript that processes data from an untrusted source in an unsafe way, usually by writing the data back to the DOM.
+
+-------------------------------------- Mitigation From XSS ---------------------------------------------------------------------------------------
+1.Filter input on arrival.
+2.Encode data on output.
+3.Use appropriate response headers: To prevent XSS in HTTP responses that aren't intended to contain any HTML or JavaScript.
+4.Content Security Policy (CSP).
+5.Taking cookie security measures: cookie handling that can mitigate cookie-theft via cross-site scripting attacks.
+
+--------------------------------------------- Practice Hands On ! ------------------------------------------------------------------------------
+https://portswigger.net/web-security/cross-site-scripting/reflected/lab-html-context-nothing-encoded
+https://portswigger.net/web-security/all-labs#cross-site-scripting
